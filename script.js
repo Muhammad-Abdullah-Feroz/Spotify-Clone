@@ -5,10 +5,11 @@ console.log(`Starting javascript...`);
     let b = await a.text();
     console.log(b);
 
+    let audio = new Audio();
     let div = document.createElement("div");
     div.innerHTML = b;
     let list = div.getElementsByTagName("li");
-    console.log(list);
+    // console.log(list);
     // let songs = document.createElement("div.songs-list");
     // let playlist = document.getElementsByClassName("library")[0]
     // playlist.append(songs)
@@ -21,7 +22,7 @@ console.log(`Starting javascript...`);
         console.log(`${sliced[0]}`);
         let html = list[i].innerHTML;
         let link = html.slice(html.search("href") + 6, html.search(".mp3") + 4);
-        console.log(link);
+        // console.log(link);
         songlink.push(link);
 
         let newSong = `
@@ -37,7 +38,7 @@ console.log(`Starting javascript...`);
                         <div class="green-play">
                             <img src="./SVGs/play.svg" height="25px" alt="play-button">
                         </div>
-                        <img src="https://i.scdn.co/image/ab67706f00000002104f039c1cc982d3617f4e4b" height="200px"
+                        <img src="https://picsum.photos/200?random=${i}" height="200px"
                             alt="card-img">
                         <h2>${sliced[0]}</h2>
                     </div>`
@@ -56,19 +57,36 @@ console.log(`Starting javascript...`);
     const PausePlay = () => {
         if (pause.style.display == "none") {
             pause.style.display = "block";
+            audio.play();
             play.style.display = "none";
         } else {
             play.style.display = "block";
             pause.style.display = "none";
+            audio.pause();
         }
     }
     pauseplay.style.cursor = "pointer"
-    pauseplay.addEventListener("click",()=>{
+    pauseplay.addEventListener("click", () => {
         PausePlay()
     })
 
-    console.log(songlink);
+    // console.log(songlink);
 
-    let audio = new Audio(songlink[3]);
-    audio.play();
+
+
+    Array.from(document.getElementsByClassName("song")).forEach((e, i) => {
+        e.addEventListener("click", () => {
+            console.log(i);
+            console.log(songlink[i]);
+            playSong(songlink[i]);
+        }
+        )
+    })
+
+    const playSong = (link) => {
+        PausePlay()
+        audio.src = link;
+        audio.play()
+    }
+
 })();
