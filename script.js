@@ -9,19 +9,25 @@ console.log(`Starting javascript...`);
     let div = document.createElement("div");
     div.innerHTML = b;
     let list = div.getElementsByTagName("li");
+
     // console.log(list);
     // let songs = document.createElement("div.songs-list");
     // let playlist = document.getElementsByClassName("library")[0]
     // playlist.append(songs)
+
     let songCard = document.getElementsByClassName("playlists")[0]
     let songs = document.getElementById("songs-list");
     let songlink = [];
+
     for (let i = 1; i < list.length; i++) {
+    
         let text = list[i].innerText;
-        let sliced = text.split("  ");
-        console.log(`${sliced[0]}`);
+        let sliced = text.split(".");
         let html = list[i].innerHTML;
         let link = html.slice(html.search("href") + 6, html.search(".mp3") + 4);
+        if(!link.endsWith('.mp3')){
+            continue;
+        }
         // console.log(link);
         songlink.push(link);
 
@@ -55,7 +61,7 @@ console.log(`Starting javascript...`);
     play.style.display = "block";
 
     const PausePlay = () => {
-        if (pause.style.display == "none") {
+        if (pause.style.display == "none" && audio.paused) {
             pause.style.display = "block";
             audio.play();
             play.style.display = "none";
@@ -82,11 +88,83 @@ console.log(`Starting javascript...`);
         }
         )
     })
+    
+    Array.from(document.getElementsByClassName("green-play")).forEach((e, i) => {
+        e.addEventListener("click", () => {
+            console.log(i);
+            console.log(songlink[i]);
+            playSong(songlink[i]);
+        }
+        )
+    })
+    
+    let start = document.getElementById("time-start")
+    let end = document.getElementById("time-end")
+    const wait = async ()=>{
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(1)
+            }, 100);
+        })
+    }
+    
+    const seekbar = document.getElementById("seekbar")
 
-    const playSong = (link) => {
-        PausePlay()
-        audio.src = link;
-        audio.play()
+    const updateSeekbar = ()=>{
+        seekbar.min = 0;
+        seekbar.max = audio.duration;
+        seekbar.value = parseInt(audio.currentTime  )
     }
 
+    seekbar.addEventListener('input',(val)=>{
+        audio.currentTime = seekbar.value;
+    })
+
+    let timeout = 0;
+
+    const updateTime = ()=>{
+
+        clearInterval(timeout)
+
+        let endtime = parseInt(audio.duration)
+        let starttime = 0
+        let minutes = Math.floor(endtime/60);
+        let seconds = endtime%60;
+
+        // endtime = endtime
+        end.innerHTML = `${(minutes<10)?'0':''}${minutes}:${(seconds<10)?'0':''}${seconds}`
+
+        timeout = setInterval(() => {
+            starttime = parseInt(audio.currentTime)
+            minutes = Math.floor(starttime/60);
+            seconds = starttime%60;
+            start.innerHTML = `${(minutes<10)?'0':''}${minutes}:${(seconds<10)?'0':''}${seconds}`
+
+            if(audio.ended){
+                clearInterval(timeout)
+            }
+
+            updateSeekbar();
+            
+        }, 1000);
+    }
+
+    const resetTime = ()=>{
+        end.innerHTML = '00:00'
+        start.innerHTML = '00:00'
+    }
+
+    
+
+    const playSong = async (link) => {
+        pause.style.display = "block";
+        play.style.display = "none";
+        audio.src = link;
+        resetTime()
+        audio.play()
+        await wait();
+        updateTime();
+        }
+        console.log(start);
+        console.log(end);
 })();

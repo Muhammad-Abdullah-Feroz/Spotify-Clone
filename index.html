@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify - Web Player: Music for everyone</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="SVGs/spotify.svg" type="image/x-icon">
 </head>
-<!-- <img src="logo.svg" alt=""> -->
 
 <body>
     <div class="container flex bg-black">
@@ -96,49 +96,27 @@
                             alt="card-img">
                         <h2>Happy Beats</h2>
                         <p>Uplifting anthems to power you</p>
-                    </div>
-                    <div class="pl-card">
-                        <div class="green-play">
-                            <img src="./SVGs/play.svg" height="25px" alt="play-button">
-                        </div>
-                        <img src="https://i.scdn.co/image/ab67706f00000002104f039c1cc982d3617f4e4b" height="200px"
-                            alt="card-img">
-                        <h2>Happy Beats</h2>
-                        <p>Uplifting anthems to power you</p>
-                    </div>
-                    <div class="pl-card">
-                        <div class="green-play">
-                            <img src="./SVGs/play.svg" height="25px" alt="play-button">
-                        </div>
-                        <img src="https://i.scdn.co/image/ab67706f00000002104f039c1cc982d3617f4e4b" height="200px"
-                            alt="card-img">
-                        <h2>Happy Beats</h2>
-                        <p>Uplifting anthems to power you</p>
-                    </div>
-                    <div class="pl-card">
-                        <div class="green-play">
-                            <img src="./SVGs/play.svg" height="25px" alt="play-button">
-                        </div>
-                        <img src="https://i.scdn.co/image/ab67706f00000002104f039c1cc982d3617f4e4b" height="200px"
-                            alt="card-img">
-                        <h2>Happy Beats</h2>
-                        <p>Uplifting anthems to power you</p>
-                    </div> -->
+                    </div>  -->
                 </div>
 
             </div>
-            <div class="playbar flex justify-center align-center">
+            <div class="playbar flex-column justify-center align-center">
           
-            <div class="controls flex justify-center align-center">
-                <img src="./SVGs/shuffle.svg" alt="Shuffle-Songs" height="35px">
-                <img src="./SVGs/skip-back.svg" alt="skip-back" height="35px">
-                <div id="pause-play" class="flex justify-center align-center" onclick="PausePlay()">
-                    <img src="./SVGs/pause.svg" alt="pause" id = "pause"height="45px">
-                    <img src="./SVGs/play-filled.svg" alt="play-filled" id="play" height="45px">
+                <div class="controls flex justify-center align-center">
+                    <img src="./SVGs/shuffle.svg" alt="Shuffle-Songs" height="30px">
+                    <img src="./SVGs/skip-back.svg" alt="skip-back" height="30px">
+                    <div id="pause-play" class="flex justify-center align-center" onclick="PausePlay()">
+                        <img src="./SVGs/pause.svg" alt="pause" id = "pause"height="40px">
+                        <img src="./SVGs/play-filled.svg" alt="play-filled" id="play" height="40px">
+                    </div>
+                    <img src="./SVGs/skip-forward.svg" alt="skip-forward" height="30px">
+                    <img src="./SVGs/loop.svg" alt="loop" height="30px">
                 </div>
-                <img src="./SVGs/skip-forward.svg" alt="skip-forward" height="35px">
-                <img src="./SVGs/loop.svg" alt="loop" height="35px">
-            </div>
+                <div class="seekbar flex align-center ">
+                    <div id="time-start">00:00</div>
+                    <input type="range" name="seekbar" id="seekbar" min="0" max="100" value="0">
+                    <div id="time-end">00:00</div>
+                </div>
             </div>
         </div>
             
